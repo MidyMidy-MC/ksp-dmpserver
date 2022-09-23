@@ -30,6 +30,8 @@ jobs:
       id-token: write
 
     steps:
+      - uses: olegtarasov/get-tag@v2.1
+        id: tagName
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -74,5 +76,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: VERSION=${{ steps.meta.outputs.tags }}
+          build-args: VERSION=${{ steps.tagName.outputs.tag }}
 
